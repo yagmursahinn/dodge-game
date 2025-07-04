@@ -1,9 +1,16 @@
-import GameBoard from './components/GameBoard'
+import { useGameStore } from './store/gameStore'
+import StartScreen from './components/StartScreen'
+import GameScreen from './components/GameScreen'
+import { useEffect } from 'react'
 
 export default function App() {
-  return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <GameBoard />
-    </div>
-  )
+  const screen = useGameStore((state) => state.screen)
+  const loadFromUrl = useGameStore((state) => state.loadFromUrl)
+
+  useEffect(() => {
+    // URL'den parametreleri yükle
+    loadFromUrl()
+  }, [loadFromUrl])
+
+  return screen === 'start' ? <StartScreen /> : <GameScreen />
 }
