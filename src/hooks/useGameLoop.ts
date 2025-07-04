@@ -48,7 +48,7 @@ export function useGameLoop(boardWidth: number) {
     const interval = setInterval(checkSlowMotion, 100)
     
     return () => clearInterval(interval)
-  }, [currentIsSlowMotion, slowMotionEndTime, setSlowMotion])
+  }, [currentIsSlowMotion, slowMotionEndTime, setSlowMotion, setSlowMotionEndTime, setSlowMotionRemaining])
   
   // Geri sayım sayacını güncelle
   useEffect(() => {
@@ -63,7 +63,7 @@ export function useGameLoop(boardWidth: number) {
     const interval = setInterval(updateCountdown, 100)
     
     return () => clearInterval(interval)
-  }, [currentIsSlowMotion, slowMotionEndTime])
+  }, [currentIsSlowMotion, slowMotionEndTime, setSlowMotionRemaining])
   
   // Slow motion durumunda fall speed'i yavaşlat
   const effectiveFallSpeed = currentIsSlowMotion ? fallSpeed * 0.3 : fallSpeed
@@ -214,7 +214,7 @@ export function useGameLoop(boardWidth: number) {
     }
 
     return () => cancelAnimationFrame(animationRef.current!)
-  }, [isGameOver, playerX, effectiveFallSpeed, spawnChance, level])
+  }, [isGameOver, playerX, effectiveFallSpeed, spawnChance, level, checkCollision, endGame, incrementScore, resetScore, setSlowMotion, spawnObject])
 
   return { objects, level, isSlowMotion: currentIsSlowMotion, slowMotionRemaining }
 }

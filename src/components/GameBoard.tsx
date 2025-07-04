@@ -28,7 +28,7 @@ export default function GameBoard() {
   const lastLevel = useRef(level)
   const lastScore = useRef(score)
   
-  const { objects, level: loopLevel, isSlowMotion, slowMotionRemaining } = useGameLoop(boardWidth)
+  const { objects, slowMotionRemaining } = useGameLoop(boardWidth)
   const currentIsSlowMotion = useGameStore((state) => state.isSlowMotion)
   const nickname = useGameStore((state) => state.nickname)
   const leaderboard = useGameStore((state) => state.leaderboard)
@@ -114,7 +114,7 @@ export default function GameBoard() {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [playerX, boardWidth, isGameOver])
+  }, [playerX, boardWidth, isGameOver, setPlayerX])
 
   // Mobil butonlar için fonksiyonlar
   const moveLeft = () => setPlayerX(Math.max(0, playerX - 20))
@@ -153,52 +153,52 @@ export default function GameBoard() {
     }
   }
 
-  // Skor kartı oluşturma fonksiyonu
-  const createScoreCard = () => {
-    const canvas = document.createElement('canvas')
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return null
+  // Skor kartı oluşturma fonksiyonu (şu an kullanılmıyor)
+  // const createScoreCard = () => {
+  //   const canvas = document.createElement('canvas')
+  //   const ctx = canvas.getContext('2d')
+  //   if (!ctx) return null
 
-    canvas.width = 600
-    canvas.height = 400
+  //   canvas.width = 600
+  //   canvas.height = 400
 
-    // Arka plan
-    ctx.fillStyle = '#1f2937'
-    ctx.fillRect(0, 0, 600, 400)
+  //   // Arka plan
+  //   ctx.fillStyle = '#1f2937'
+  //   ctx.fillRect(0, 0, 600, 400)
 
-    // Başlık
-    ctx.fillStyle = '#ffffff'
-    ctx.font = 'bold 48px Arial'
-    ctx.textAlign = 'center'
-        ctx.fillText('🎮 Dodge Game', 300, 80)
+  //   // Başlık
+  //   ctx.fillStyle = '#ffffff'
+  //   ctx.font = 'bold 48px Arial'
+  //   ctx.textAlign = 'center'
+  //       ctx.fillText('🎮 Dodge Game', 300, 80)
 
-    // Oyuncu adı
-    ctx.fillStyle = '#60a5fa'
-    ctx.font = 'bold 32px Arial'
-    ctx.fillText(nickname, 300, 140)
+  //   // Oyuncu adı
+  //   ctx.fillStyle = '#60a5fa'
+  //   ctx.font = 'bold 32px Arial'
+  //   ctx.fillText(nickname, 300, 140)
 
-    // Skor
-    ctx.fillStyle = '#fbbf24'
-    ctx.font = 'bold 64px Arial'
-    ctx.fillText(`${score}`, 300, 220)
+  //   // Skor
+  //   ctx.fillStyle = '#fbbf24'
+  //   ctx.font = 'bold 64px Arial'
+  //   ctx.fillText(`${score}`, 300, 220)
 
-    // Level
-    ctx.fillStyle = '#ffffff'
-    ctx.font = '24px Arial'
-    ctx.fillText(`Level ${level}`, 300, 260)
+  //   // Level
+  //   ctx.fillStyle = '#ffffff'
+  //   ctx.font = '24px Arial'
+  //   ctx.fillText(`Level ${level}`, 300, 260)
 
-    // Tema
-    ctx.fillStyle = '#9ca3af'
-    ctx.font = '20px Arial'
-    ctx.fillText(`Theme: ${currentTheme}`, 300, 300)
+  //   // Tema
+  //   ctx.fillStyle = '#9ca3af'
+  //   ctx.font = '20px Arial'
+  //   ctx.fillText(`Theme: ${currentTheme}`, 300, 300)
 
-    // Tarih
-    ctx.fillStyle = '#6b7280'
-    ctx.font = '16px Arial'
-    ctx.fillText(new Date().toLocaleDateString(), 300, 340)
+  //   // Tarih
+  //   ctx.fillStyle = '#6b7280'
+  //   ctx.font = '16px Arial'
+  //   ctx.fillText(new Date().toLocaleDateString(), 300, 340)
 
-    return canvas.toDataURL()
-  }
+  //   return canvas.toDataURL()
+  // }
 
   return (
     <div
