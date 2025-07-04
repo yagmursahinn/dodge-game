@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { useGameStore, LEVEL_CONFIG } from '../store/gameStore'
 import { sounds } from '../sounds/sounds'
 
@@ -68,7 +68,7 @@ export function useGameLoop(boardWidth: number) {
   // Slow motion durumunda fall speed'i yavaşlat
   const effectiveFallSpeed = currentIsSlowMotion ? fallSpeed * 0.3 : fallSpeed
 
-  const spawnObject = () => {
+  const spawnObject = useCallback(() => {
     // Level'a göre bonus oranı - yüksek level'larda daha az bonus
     const baseBonusChance = 0.10 // %15'ten %10'a düşürdük
     const levelPenalty = (level - 1) * 0.008 // Her level'da %0.8 azalır (daha yumuşak)
@@ -106,10 +106,10 @@ export function useGameLoop(boardWidth: number) {
         type: objectType,
       },
     ])
-  }
+  }, [level, boardWidth])
   
 
-  const checkCollision = (obj: FallingObject) => {
+  const checkCollision = useCallback((obj: FallingObject) => {
     const objBottom = obj.y + OBJECT_SIZE
     const objRight = obj.x + OBJECT_SIZE
     const playerBottom = GAME_HEIGHT - 2
@@ -119,7 +119,7 @@ export function useGameLoop(boardWidth: number) {
     const verticalOverlap = objBottom >= playerBottom - PLAYER_SIZE
 
     return horizontalOverlap && verticalOverlap
-  }
+  }, [playerX])
   
   // Level atlama kontrolü
   useEffect(() => {
@@ -137,7 +137,7 @@ export function useGameLoop(boardWidth: number) {
       setSlowMotion(false)
       setSlowMotionEndTime(0)
     }
-  }, [isGameOver])
+  }, [isGameOver, setSlowMotion, setSlowMotionEndTime])
 
   useEffect(() => {
     const loop = () => {
@@ -214,7 +214,7 @@ export function useGameLoop(boardWidth: number) {
     }
 
     return () => cancelAnimationFrame(animationRef.current!)
-  }, [isGameOver, playerX, effectiveFallSpeed, spawnChance, level, checkCollision, endGame, incrementScore, resetScore, setSlowMotion, spawnObject])
+  }, [isGameOver, playerX, effectiveFallSpeed, spawnChance, level, checkCollision, endGame, incrementScore, resetScore, setSlowMotion, spawnObject, setSlowMotionEndTime, setSlowMotionRemaining])
 
   return { objects, level, isSlowMotion: currentIsSlowMotion, slowMotionRemaining }
 }
