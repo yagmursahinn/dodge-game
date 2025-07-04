@@ -12,7 +12,7 @@ export default function FallingObject({ x, y, size = 30, type = 'normal' }: Prop
   const currentTheme = useGameStore((state) => state.currentTheme)
   const color = themes[currentTheme]?.[type || 'normal'] || 'bg-white'
 
-  // Bonus objeler için özel stiller
+ 
   const isBonus = type === 'bonus'
   const isBomb = type === 'bomb'
   const isSlow = type === 'slow'
@@ -40,21 +40,21 @@ export default function FallingObject({ x, y, size = 30, type = 'normal' }: Prop
         transform: isBonus ? 'scale(1.1)' : isBomb ? 'scale(1.2)' : isSlow ? 'scale(1.15)' : 'scale(1)',
       }}
     >
-      {/* Bonus objeler için içeride yıldız efekti */}
+      
       {isBonus && (
         <div className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold">
           ★
         </div>
       )}
       
-      {/* Bomb objeler için içeride bomba efekti */}
+      
       {isBomb && (
         <div className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold">
           💣
         </div>
       )}
       
-      {/* Yavaşlatıcı objeler için içeride saat efekti */}
+     
       {isSlow && (
         <div className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold">
           ⏰

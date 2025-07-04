@@ -133,7 +133,7 @@ export default function GameBoard() {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `${nickname} - Mini Game Skoru`,
+          title: `${nickname} - Dodge Game Skoru`,
           text: `${nickname} ${score} puan ve ${level}. seviyeye ulaştı! Sen de dene!`,
           url: shareUrl
         })
@@ -170,7 +170,7 @@ export default function GameBoard() {
     ctx.fillStyle = '#ffffff'
     ctx.font = 'bold 48px Arial'
     ctx.textAlign = 'center'
-    ctx.fillText('🎮 Mini Game', 300, 80)
+        ctx.fillText('🎮 Dodge Game', 300, 80)
 
     // Oyuncu adı
     ctx.fillStyle = '#60a5fa'
@@ -221,9 +221,9 @@ export default function GameBoard() {
 ))}
 
 <div className="absolute top-2 left-1/2 transform -translate-x-1/2 text-white text-center text-lg font-mono">
-  <div>Score: {score}</div>
-  <div className="text-sm text-gray-400">High Score: {highScore}</div>
-  <div className="text-sm text-yellow-400 font-bold">Level: {level}</div>
+  <div>Skor: {score}</div>
+  <div className="text-sm text-gray-400">En Yüksek Skor: {highScore}</div>
+  <div className="text-sm text-yellow-400 font-bold">Seviye: {level}</div>
   {currentIsSlowMotion && (
     <div className="text-sm text-blue-400 font-bold animate-pulse">
       ⏰ YAVAŞLATICI AKTİF ({slowMotionRemaining}s)
@@ -282,15 +282,15 @@ export default function GameBoard() {
 
       {isGameOver && (
         <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center gap-4">
-          <h2 className="text-white text-3xl font-bold">Game Over</h2>
+          <h2 className="text-white text-3xl font-bold">Oyun Bitti</h2>
           <div className="text-white text-center">
             <p className="text-lg font-medium">{nickname}</p>
-            <p>Final Score: {score}</p>
-            <p>Level Reached: {level}</p>
+            <p>Final Skor: {score}</p>
+            <p>Ulaşılan Seviye: {level}</p>
             {leaderboard.length > 0 && (
               <div className="mt-2 p-2 bg-gray-800 rounded">
                 <p className="text-sm text-gray-300">En Yüksek Skor: {leaderboard[0].score}</p>
-                <p className="text-xs text-gray-400">by {leaderboard[0].nickname}</p>
+                <p className="text-xs text-gray-400"> {leaderboard[0].nickname}</p>
               </div>
             )}
           </div>
@@ -299,7 +299,7 @@ export default function GameBoard() {
               onClick={restart}
               className="px-4 py-2 bg-white text-black rounded hover:bg-gray-200"
             >
-              Try Again
+              Tekrar Dene
             </button>
             <button
               onClick={handleShare}
@@ -311,7 +311,7 @@ export default function GameBoard() {
               onClick={handleHome}
               className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
             >
-              Home
+              Ana Sayfa
             </button>
           </div>
         </div>

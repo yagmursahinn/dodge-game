@@ -22,9 +22,9 @@ export default function StartScreen() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-800 p-4">
       <div className="w-full max-w-md p-4 flex flex-col items-center gap-4 border rounded bg-gray-900 text-white">
-        <h1 className="text-4xl font-bold">🎮 Mini Game</h1>
+        <h1 className="text-4xl font-bold">🎮 Dodge Game</h1>
         
-        {/* Nickname Girişi */}
+ 
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-300 mb-2">
             Nickname:
@@ -56,7 +56,7 @@ export default function StartScreen() {
                 : 'bg-red-500 hover:bg-red-600'
             }`}
           >
-            Classic
+            Klasik
           </button>
           <button 
             onClick={() => setTheme('neon')} 
@@ -86,7 +86,7 @@ export default function StartScreen() {
             disabled={!tempNickname.trim()}
             className="flex-1 px-6 py-3 bg-white text-black font-bold rounded hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Start Game
+            Oyunu Başlat
           </button>
           <button
             onClick={() => setShowLeaderboard(!showLeaderboard)}
@@ -96,10 +96,10 @@ export default function StartScreen() {
           </button>
         </div>
 
-        {/* Leaderboard */}
+   
         {showLeaderboard && (
           <div className="w-full mt-4 p-3 bg-gray-800 rounded border border-gray-600">
-            <h3 className="text-lg font-bold text-center mb-3 text-yellow-400">🏆 Leaderboard</h3>
+            <h3 className="text-lg font-bold text-center mb-3 text-yellow-400">🏆 Lider Listesi</h3>
             {leaderboard.length === 0 ? (
               <p className="text-center text-gray-400">Henüz skor yok!</p>
             ) : (
